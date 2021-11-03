@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, StatusBar, Image, Animated } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Animated } from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Rocket from './assets/rocket.png';
+
+// pantallas
+import Home from './screens/Home';
+import Detail from './screens/Detail';
+import Rover from './screens/Rover';
+
+// pila de navegacion
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [animated, setAnimated] = useState(false);
@@ -42,7 +52,14 @@ const App = () => {
     </View>
     </>
   );
-  return(<Text>La app comienza</Text>);
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initalRouteName={Home}>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Rover" component={Rover} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 const styles = StyleSheet.create({
   container: {
