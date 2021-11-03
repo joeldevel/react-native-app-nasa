@@ -3,8 +3,10 @@ import { StyleSheet, Text, View, StatusBar, Image, Animated } from 'react-native
 import Rocket from './assets/rocket.png';
 
 const App = () => {
+  const [animated, setAnimated] = useState(false);
   const [show] = useState(new Animated.Value(0));
   const [position] = useState(new Animated.Value(700));
+  const [font] = useState(new Animated.Value(1));
 
   useEffect(()=> {
     Animated.parallel([
@@ -19,19 +21,28 @@ const App = () => {
         duration: 3000,
         useNativeDriver: false,
       })
-    ]).start();
+    ]).start(()=> {
+      Animated.timing( font, {
+        toValue: 200,
+        duration: 1000,
+        useNativeDriver: false,
+      }).start(()=> setAnimated(true)); // cuando todas las animaciones finalizan
+    });
   }, []);
-
+  if (!animated)
   return (
     <>
     <StatusBar animated={true} backgroundColor="#142950" barStyle="#light-content">
     </StatusBar>
     <View style={styles.container}>
       <Animated.Image style={[styles.image, {top: position}]} source={Rocket} />
-      <Animated.Text style={[styles.text, {opacity: show}]}>Bienvenido</Animated.Text>
+      <Animated.Text style={[styles.text, {opacity: show, transform:[{scale: font}]}]}>
+        Bienvenido
+      </Animated.Text>
     </View>
     </>
   );
+  return(<Text>La app comienza</Text>);
 }
 const styles = StyleSheet.create({
   container: {
