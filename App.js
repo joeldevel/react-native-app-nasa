@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, StatusBar, Animated } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Rocket from './assets/rocket.png';
 
 // pantallas
@@ -53,12 +54,17 @@ const App = () => {
     </>
   );
   return (
-    <NavigationContainer>
-      <Stack.Navigator initalRouteName={Home}>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Rover" component={Rover} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView style={{flex:1}}>
+      <StatusBar animated={true} backgroundColor="#142950" barStyle="#light-content">
+      </StatusBar>
+      <NavigationContainer>
+        <Stack.Navigator initalRouteName={Home}>
+          <Stack.Screen name="Home" component={Home} options={{title: "My rovers"}}/>
+          <Stack.Screen name="Rover" component={Rover} options={{title: "Add rover"}}/>
+          <Stack.Screen name="Detail" component={Detail} options={{title: "Images"}}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 }
 const styles = StyleSheet.create({
