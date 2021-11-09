@@ -7,7 +7,7 @@ const Home = ({navigation}) => {
     <View style={styles.container}>
       <TouchableOpacity
         style={styles.btn}
-        onPress={()=>console.log('adding!')}>
+        onPress={()=>navigation.navigate("Rover")}>
         <Text style={styles.text}>
           <Ionicons name="add" size={30} color="#fafafa"/>
         </Text>
